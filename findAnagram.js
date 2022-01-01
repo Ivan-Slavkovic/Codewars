@@ -1,12 +1,3 @@
-// function anagrams(word, words) {
-// 	let newStr1 = word.replace(/[^a-z]/g, '').split('').sort(); //...
-// 	let newStr2 = words.replace(/[^a-z]/g, '').split('').sort();
-
-// 	return newStr1 === newStr2;
-// }
-// //anagrams('abba', ['aabb', 'abcd', 'bbaa', 'dada']) => ['aabb', 'bbaa']
-// console.log(anagrams('abba', [ 'aabb', 'abcd', 'bbaa', 'dada' ]));
-
 function anagrams(strs) {
 	var result = [];
 	if (strs == null || strs.length == 0) return result;
