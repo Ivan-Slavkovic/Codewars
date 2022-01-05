@@ -16,36 +16,26 @@ lastDigit("9", "7")            // returns 9
 lastDigit("10","10000000000")  // returns 0
 */
 var lastDigit = function(str1, str2) {
-	function add(a, b) {
-		const aLength = a.length;
-		const bLength = b.length;
-		const max = Math.max(aLength, bLength);
-
-		let carry = 0,
-			sum = '';
-
-		for (let i = 1; i <= max; i++) {
-			let x = +a.charAt(aLength - i);
-			let y = +b.charAt(bLength - i);
-
-			let t = carry + x + y;
-			carry = (t / 10) | 0;
-			t %= 10;
-
-			sum = i === max && carry ? carry * 10 + t + sum : t + sum;
-		}
-
-		return sum;
+	if (str2 === '0') {
+		return 1;
 	}
-	let helper1 = str1.split('');
-	let helper2 = str2.split('');
-	let god = Math.max(helper1.length, helper2.length);
-	console.log(helper2);
-	for (let i = 0; i < god; i++) {
-		add();
+	let a = parseInt(str1[str1.length - 1]);
+	let b = a;
+
+	let carry = Array.from(str2)
+		.map(Number)
+		.reduce((acc, n) => (acc * 10 + n) % 4, 0);
+	// 	console.log(a + ' prvi, ' + b + ' drugi, ' + carry + ' carry');
+
+	for (let i = 1; i < carry; i++) {
+		a = (a * b) % 10;
 	}
+	return a;
 };
-lastDigit(
-	'1606938044258990275541962092341162602522202993782792835301376',
-	'2037035976334486086268445688409378161051468393665936250636140449354381299763336706183397376'
+
+console.log(
+	lastDigit(
+		'3715290469715693021198967285016729344580685479654510946723',
+		'68819615221552997273737174557165657483427362207517952651'
+	)
 );
