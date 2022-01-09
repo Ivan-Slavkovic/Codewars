@@ -56,7 +56,7 @@ function formatDuration(seconds) {
 		daysNum * 86400 -
 		yearsNum * 31536000;
 
-	console.log(minsNum, secondsNum);
+	// console.log(minsNum, secondsNum);
 	let yearUnit = yearsNum + ' year';
 	if (yearsNum != 1) yearUnit += 's';
 
@@ -72,29 +72,45 @@ function formatDuration(seconds) {
 	let secondsUnit = secondsNum + ' second';
 	if (secondsNum != 1) secondsUnit += 's';
 
-	let tempArrayNum = [ secondsNum, minsNum, hoursNum, daysNum, yearsNum ];
-	for (let i = tempArrayNum.length; i >= 0; i--) {
+	let tempArrayNum = [ yearsNum, daysNum, hoursNum, minsNum, secondsNum ];
+	let counter = 0;
+	for (let i = 0; i < tempArrayNum.length; i++) {
 		if (tempArrayNum[i] == 0) {
-			tempArrayNum.pop();
+			tempArrayNum.shift();
+			counter++;
+		}
+		if (tempArrayNum[i] > 0) {
+			break;
 		}
 	}
 	let format = [];
-	let tempArrayUnit = [ secondsUnit, minUnit, hourUnit, dayUnit, yearUnit ];
+	// let tempArrayUnit = [ secondsUnit, minUnit, hourUnit, dayUnit, yearUnit ];
+	// tempArrayUnit.reverse();
+	let tempArrayUnit = [ yearUnit, dayUnit, hourUnit, minUnit, secondsUnit ];
 	for (let i = 0; i < tempArrayNum.length; i++) {
-		format.push(tempArrayUnit[i]);
+		if (tempArrayNum[i] > 0) {
+			format.push(tempArrayUnit[counter + i]);
+		}
 	}
-	format = format.reverse();
-	format[format.length - 2] += ' and ';
+	if (format.length > 1) {
+		format[format.length - 2] += ' and ';
+	}
 	let finalFormat = '';
+	console.log(format);
 	for (let i = 0; i < format.length; i++) {
 		if (i == format.length - 2) {
-			finalFormat += format[i];
+			format[format.length - 2] += ' and ';
 		} else if (i == format.length - 1) {
 			finalFormat += format[i];
+			console.log(format[i]);
 		} else {
+			if (format[i].includes('and')) {
+				finalFormat += format[i];
+				continue;
+			}
 			finalFormat += format[i] + ', ';
 		}
 	}
 	console.log(finalFormat);
 }
-formatDuration(120);
+formatDuration(886014);
