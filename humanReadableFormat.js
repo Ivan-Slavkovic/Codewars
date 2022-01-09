@@ -84,8 +84,6 @@ function formatDuration(seconds) {
 		}
 	}
 	let format = [];
-	// let tempArrayUnit = [ secondsUnit, minUnit, hourUnit, dayUnit, yearUnit ];
-	// tempArrayUnit.reverse();
 	let tempArrayUnit = [ yearUnit, dayUnit, hourUnit, minUnit, secondsUnit ];
 	for (let i = 0; i < tempArrayNum.length; i++) {
 		if (tempArrayNum[i] > 0) {
@@ -96,21 +94,13 @@ function formatDuration(seconds) {
 		format[format.length - 2] += ' and ';
 	}
 	let finalFormat = '';
-	console.log(format);
 	for (let i = 0; i < format.length; i++) {
-		if (i == format.length - 2) {
-			format[format.length - 2] += ' and ';
-		} else if (i == format.length - 1) {
+		if (i == 0 || i == format.length - 1) {
 			finalFormat += format[i];
-			console.log(format[i]);
-		} else {
-			if (format[i].includes('and')) {
-				finalFormat += format[i];
-				continue;
-			}
-			finalFormat += format[i] + ', ';
+		} else if (i > 0) {
+			finalFormat += ', ' + format[i];
 		}
 	}
 	console.log(finalFormat);
 }
-formatDuration(886014);
+formatDuration(62);
